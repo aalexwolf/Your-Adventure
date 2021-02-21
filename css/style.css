@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('button.css');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+    font-size: 24px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1200px;
+}
+
+
+/*START SCREEN*/
+#start {
+    min-height: 100vh;
+    background: url('../img/Background.jpg') center center/cover no-repeat;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 57px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.header__item {
+    font-size: 18px;
+    margin-right: 60px;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FFF;
+}
+.welcome {
+    margin-top: 180px;
+}
+.welcome__text {
+    font-family: "Abril Fatface";
+    font-size: 62px;
+    color: #fff;
+    margin-bottom: 32px;
+}

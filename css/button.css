@@ -1,0 +1,23 @@
+.btn {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #A0703F;
+    color: #fff;
+
+}
+
+.btn_small {
+    font-size: 18px;
+    width: 190px;
+    height: 45px;
+}
+
+.btn_big {
+    width: 440px;
+    height: 106px;
+    font-size: 36px;
+    font-weight: bold;
+}
