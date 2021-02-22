@@ -1,0 +1,40 @@
+/*START SCREEN*/
+
+#start {
+    min-height: 100vh;
+    background: url('../img/Background.jpg') center center/cover no-repeat;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 57px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.header__item {
+    font-size: 18px;
+    margin-right: 60px;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FFF;
+}
+.welcome {
+    margin-top: 180px;
+}
+.welcome__text {
+    font-family: "Abril Fatface";
+    font-size: 62px;
+    color: #fff;
+    margin-bottom: 32px;
+}
