@@ -33,8 +33,12 @@ nav a {
     margin-top: 180px;
 }
 .welcome__text {
-    font-family: "Abril Fatface";
+    font-family: "Yeseva One";
     font-size: 62px;
     color: #fff;
     margin-bottom: 32px;
+}
+
+header nav a:last-child {
+    transform: translateY(-25%);
 }

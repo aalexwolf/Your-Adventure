@@ -1,3 +1,4 @@
+
 .auth {
     min-height: 100vh;
     display: flex;
@@ -9,7 +10,7 @@
 }
 
 .auth__item:first-child {
-    background: url(/img/auth_background.png) center center/cover no-repeat;
+    background: url(../img/auth_background.png) center center/cover no-repeat;
 }
 
 .auth__item:last-child {
@@ -23,8 +24,10 @@
 }
 
 .auth__title {
-    font-family: 'Abril Fatface';
+    font-family: "Yeseva One";
+    margin-top: 10px;
     font-size: 30px;
+    margin-bottom: 20px;
 }
 
 .auth__form label {
@@ -32,6 +35,7 @@
 }
 
 .auth__form input[type^=submit] {
+    margin-top: 33px;
     color: #fff;
     font-size: 16px;
     font-weight: 700;
@@ -46,12 +50,20 @@
     border: none;
 }
 
+.auth__form input[type^=checkbox] {
+    margin-top: 20px;
+    
+}
+
 
 .auth__inputData {
     width: 430px;
     padding: 0 25px;
     height: 60px;
     font-size: 14px;
+    border: 1px solid #E8E8E8;
+    margin-top: 7px;
+    border-radius: 5px;
 }
 
 .auth__form p, .auth__form a {
@@ -60,6 +72,7 @@
 }
 
 .auth__reg {
+    margin-top: 34px;
     text-align: center;
 }
 
