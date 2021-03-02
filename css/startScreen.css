@@ -1,5 +1,4 @@
 /*START SCREEN*/
-
 #start {
     min-height: 100vh;
     background: url('../img/Background.jpg') center center/cover no-repeat;
@@ -48,32 +47,33 @@ header nav a:last-child {
 
 #popular {
     min-height: 100vh;
-    padding: 80px 0;
+    padding: 70px 0;
 }
 
-.tours {
-    justify-content: center;
+
+#promo {
+    min-height: 300px;
+    background: #15CFAD;
+    padding: 120px;
+    color: #fff;
+}
+
+.promo__wrapper {
+    display: flex;
+    justify-content: space-around;
     align-items: center;
 }
 
-.tours__header {
-    margin-bottom: 65px;
-}
-
-.tours__header h2 {
-    font-family: "Abril Fatface";
-    font-size: 58px;
+.promo__item {
     text-align: center;
+    font-size: 28px;
 }
 
-.tours__wrapper {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.promo__item span {
+    font-family: 'Yeseva One';
+    font-size: 72px;
 }
 
-.tours__item {
-    min-width: 30%;
-    background:coral;
+#reviews {
+    min-height: 100vh;
 }
-

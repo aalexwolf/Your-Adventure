@@ -1,0 +1,77 @@
+.tours {
+    justify-content: center;
+    align-items: center;
+}
+
+.tours__title {
+    margin-bottom: 65px;
+}
+
+.tours__title h2 {
+    font-family: "Abril Fatface";
+    font-size: 58px;
+    text-align: center;
+}
+
+.tours__wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tours__item {
+    max-width: 350px;
+    min-height: 500px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.tours__img {
+    height: 50%;
+}
+
+.tours__img img {
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.tours__info {
+    padding: 16px 13px;
+}
+
+.tours__place-and-price {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.tours__rating {
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.tours__about {
+    margin-top: 22px;
+    font-size: 18px;
+}
+
+.tours__days {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 11px;
+}
+
+.tours__button {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    color: #fff;
+    margin-top: 15px;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    width: 200px;
+    font-size: 18px;
+    height: 40px;
+    background: #09C299
+}

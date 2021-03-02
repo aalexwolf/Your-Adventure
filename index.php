@@ -13,6 +13,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
     <title>Your Adventure</title>
 </head>
 
@@ -24,7 +26,7 @@
                     <img class="header__logo" src="img/logo.svg" alt="logo">
                 </a>
                 <nav>
-                    <a href="#" class="header__item">Туры</a>
+                    <a href="#popular" class="header__item">Туры</a>
                     <a href="#" class="header__item">Отзывы</a>
                     <a href="#" class="header__item">Контакты</a>
 
@@ -49,24 +51,227 @@
     <section id="popular">
         <div class="container">
             <div class="tours">
-                <div class="tours__header">
-                    <h2>Самые популярные туры</h2>
+                <div class="tours__title">
+                    <h2 class="title">Самые популярные туры</h2>
                 </div>
 
                 <div class="tours__wrapper">
                     <div class="tours__item">
                         <div class="tours__img">
-                            <img src="" alt="tour">
+                            <img src="img/tours/paris.jpg" alt="tour">
+                        </div>
+                        <div class="tours__info">
+                            <div class="tours__place-and-price">
+                                <div class="tours__place">
+                                    <h3>Париж, Франция</h3>
+                                </div>
+                                <div class="tours__price">
+                                    300$
+                                </div>
+                            </div>
+                            <div class="tours__rating">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                Рейтинг
+                            </div>
+                            <div class="tours__about">
+                                Убеги от своих проблем в рай
+                                Европы, полной любви и романтики,
+                                тайн и загадок
+                            </div>
+                            <div class="tours__days">
+                                2 дня
+                            </div>
+                            <a class="tours__button" href="">
+                                Подробнее
+                            </a>
                         </div>
                     </div>
+
                     <div class="tours__item">
                         <div class="tours__img">
-                            <img src="" alt="tour">
+                            <img src="img/tours/paris.jpg" alt="tour">
+                        </div>
+                        <div class="tours__info">
+                            <div class="tours__place-and-price">
+                                <div class="tours__place">
+                                    <h3>Париж, Франция</h3>
+                                </div>
+                                <div class="tours__price">
+                                    300$
+                                </div>
+                            </div>
+                            <div class="tours__rating">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                Рейтинг
+                            </div>
+                            <div class="tours__about">
+                                Убеги от своих проблем в рай
+                                Европы, полной любви и романтики,
+                                тайн и загадок
+                            </div>
+                            <div class="tours__days">
+                                2 дня
+                            </div>
+                            <a class="tours__button" href="">
+                                Подробнее
+                            </a>
                         </div>
                     </div>
+
                     <div class="tours__item">
                         <div class="tours__img">
-                            <img src="" alt="tour">
+                            <img src="img/tours/paris.jpg" alt="tour">
+                        </div>
+                        <div class="tours__info">
+                            <div class="tours__place-and-price">
+                                <div class="tours__place">
+                                    <h3>Париж, Франция</h3>
+                                </div>
+                                <div class="tours__price">
+                                    300$
+                                </div>
+                            </div>
+                            <div class="tours__rating">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                <img src="img/rating/yellow.svg" alt="1">
+                                Рейтинг
+                            </div>
+                            <div class="tours__about">
+                                Убеги от своих проблем в рай
+                                Европы, полной любви и романтики,
+                                тайн и загадок
+                            </div>
+                            <div class="tours__days">
+                                2 дня
+                            </div>
+                            <a class="tours__button" href="">
+                                Подробнее
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="promo">
+        <div class="container">
+            <div class="promo__wrapper">
+                <div class="promo__item"><span>1000</span> <br>пользователей</div>
+                <div class="promo__item"><span>23</span> <br>активных туров</div>
+                <div class="promo__item"><span>350</span> <br>реальных отзывов</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <div class="container">
+            <div class="review">
+                <div class="review__title">
+                    <h2 class="title review__title">Последние отзывы</h2>
+                    <h3 class="subtitle review__subtitle">Последние впечатления счастливчиков, побывавших на одном из
+                        наших туров</h3>
+                </div>
+                <div class="review__wrapper">
+                    <div class="review__item">
+                        <div class="review__item-wrapper">
+                            <div class="review__img" style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
+                            </div>
+                            <div class="review__text">
+                                Far far away, behind the word
+                                mountains, far from the countries
+                                Vokalia and Consonantia, there live
+                                the blind texts.
+                            </div>
+                            <div class="review__author">
+                                Джон Доуэл
+                            </div>
+                            <div class="review__tour">
+                                о туре <span>Париж, Франция</span> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review__item">
+                        <div class="review__item-wrapper">
+                            <div class="review__img" style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
+                            </div>
+                            <div class="review__text">
+                                Far far away, behind the word
+                                mountains, far from the countries
+                                Vokalia and Consonantia, there live
+                                the blind texts.
+                            </div>
+                            <div class="review__author">
+                                Джон Доуэл
+                            </div>
+                            <div class="review__tour">
+                                о туре <span>Париж, Франция</span> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review__item">
+                        <div class="review__item-wrapper">
+                            <div class="review__img" style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
+                            </div>
+                            <div class="review__text">
+                                Far far away, behind the word
+                                mountains, far from the countries
+                                Vokalia and Consonantia, there live
+                                the blind texts.
+                            </div>
+                            <div class="review__author">
+                                Джон Доуэл
+                            </div>
+                            <div class="review__tour">
+                                о туре <span>Париж, Франция</span> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review__item">
+                        <div class="review__item-wrapper">
+                            <div class="review__img" style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
+                            </div>
+                            <div class="review__text">
+                                Far far away, behind the word
+                                mountains, far from the countries
+                                Vokalia and Consonantia, there live
+                                the blind texts.
+                            </div>
+                            <div class="review__author">
+                                Джон Доуэл
+                            </div>
+                            <div class="review__tour">
+                                о туре <span>Париж, Франция</span> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review__item">
+                        <div class="review__item-wrapper">
+                            <div class="review__img" style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
+                            </div>
+                            <div class="review__text">
+                                Far far away, behind the word
+                                mountains, far from the countries
+                                Vokalia and Consonantia, there live
+                                the blind texts.
+                            </div>
+                            <div class="review__author">
+                                Джон Доуэл
+                            </div>
+                            <div class="review__tour">
+                                о туре <span>Париж, Франция</span> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,6 +279,9 @@
         </div>
     </section>
 </body>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/slick/slick.min.js"></script>
 <script src="js/script.js"></script>
 
 </html>

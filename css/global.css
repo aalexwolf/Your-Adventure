@@ -14,3 +14,15 @@
     max-width: 1200px;
 }
 
+.title {
+    font-family: "Abril Fatface";
+    font-size: 58px;
+    text-align: center;
+}
+
+.subtitle {
+    font-family: 'Roboto';
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+}
