@@ -82,7 +82,7 @@ if (isset($login) && isset($name) && isset($password) && isset($passwordRepeat) 
         }
 
         .btn_big {
-            background: #04C45C;
+            background: #15CFAD;
             font-size: 24px;
             width: 80%;
             height: 60px;

@@ -1,8 +1,8 @@
 <?php
-    session_start();
-    if ($_COOKIE['username'] != '') {
-        $_SESSION['username'] = $_COOKIE['username'];
-    }
+session_start();
+if ($_COOKIE['username'] != '') {
+    $_SESSION['username'] = $_COOKIE['username'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
+    <script src="https://use.fontawesome.com/a4f7fde117.js"></script>
     <title>Your Adventure</title>
 </head>
 
@@ -27,16 +28,16 @@
                 </a>
                 <nav>
                     <a href="#popular" class="header__item">Туры</a>
-                    <a href="#" class="header__item">Отзывы</a>
+                    <a href="#reviews" class="header__item">Отзывы</a>
                     <a href="#" class="header__item">Контакты</a>
 
-                    <?php if($_SESSION['username'] == ''):?>
-                    <a href="modules/auth.php" class="btn btn_small">Войти</a>
-                    <?php endif;?>
+                    <?php if ($_SESSION['username'] == '') : ?>
+                        <a href="modules/auth.php" class="btn btn_small">Войти</a>
+                    <?php endif; ?>
 
-                    <?php if($_SESSION['username'] != ''):?>
-                    <a href="modules/auth.php" class="circle"><?php echo $_SESSION['username'] ?></a>
-                    <?php endif;?>
+                    <?php if ($_SESSION['username'] != '') : ?>
+                        <a href="modules/auth.php" class="circle"><?php echo $_SESSION['username'] ?></a>
+                    <?php endif; ?>
                 </nav>
             </header>
             <div class="welcome">
@@ -54,89 +55,28 @@
                 <div class="tours__title">
                     <h2 class="title">Самые популярные туры</h2>
                 </div>
-
+                <?php
+                //'select t.id, c.name, co.name, t.price, t.description, DATEDIFF(t.date_out, t.date_in), COUNT(*) from bookedtours as b inner join user as u on b.user_id = u.id inner join tours t on b.tour_id = t.id inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id group by t.id'
+                ?>
                 <div class="tours__wrapper">
-                    <div class="tours__item">
-                        <div class="tours__img">
-                            <img src="img/tours/paris.jpg" alt="tour">
-                        </div>
-                        <div class="tours__info">
-                            <div class="tours__place-and-price">
-                                <div class="tours__place">
-                                    <h3>Париж, Франция</h3>
-                                </div>
-                                <div class="tours__price">
-                                    300$
-                                </div>
-                            </div>
-                            <div class="tours__rating">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                Рейтинг
-                            </div>
-                            <div class="tours__about">
-                                Убеги от своих проблем в рай
-                                Европы, полной любви и романтики,
-                                тайн и загадок
-                            </div>
-                            <div class="tours__days">
-                                2 дня
-                            </div>
-                            <a class="tours__button" href="">
-                                Подробнее
-                            </a>
-                        </div>
-                    </div>
+                    <?php
+                    $query = "select t.id, c.name city, co.name country, t.price, t.description, DATEDIFF(t.date_out, t.date_in) as days, COUNT(*) kol from bookedtours as b inner join user as u on b.user_id = u.id inner join tours t on b.tour_id = t.id inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id group by t.id order by kol desc limit 3";
+                    include 'connect/db.php';
+                    $result = $mysql->query($query);
 
-                    <div class="tours__item">
-                        <div class="tours__img">
-                            <img src="img/tours/paris.jpg" alt="tour">
-                        </div>
-                        <div class="tours__info">
-                            <div class="tours__place-and-price">
-                                <div class="tours__place">
-                                    <h3>Париж, Франция</h3>
-                                </div>
-                                <div class="tours__price">
-                                    300$
-                                </div>
-                            </div>
-                            <div class="tours__rating">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                <img src="img/rating/yellow.svg" alt="1">
-                                Рейтинг
-                            </div>
-                            <div class="tours__about">
-                                Убеги от своих проблем в рай
-                                Европы, полной любви и романтики,
-                                тайн и загадок
-                            </div>
-                            <div class="tours__days">
-                                2 дня
-                            </div>
-                            <a class="tours__button" href="">
-                                Подробнее
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="tours__item">
+                    foreach ($result as $item) : ?>
+                        <div class="tours__item">
                         <div class="tours__img">
                             <img src="img/tours/paris.jpg" alt="tour">
                         </div>
                         <div class="tours__info">
                             <div class="tours__place-and-price">
                                 <div class="tours__place">
-                                    <h3>Париж, Франция</h3>
+                                    <h3><?= $item['city'] ?>, <?= $item['country'] ?></h3>
                                 </div>
                                 <div class="tours__price">
-                                    300$
+                                    <?= $item['price'] ?>
                                 </div>
                             </div>
                             <div class="tours__rating">
@@ -148,18 +88,20 @@
                                 Рейтинг
                             </div>
                             <div class="tours__about">
-                                Убеги от своих проблем в рай
-                                Европы, полной любви и романтики,
-                                тайн и загадок
+                                <?
+                                    $descrp = strlen($item['description']) > 120 ? substr($item['description'], 0, 218) . '...' : $item['description'];
+                                    echo $descrp;
+                                ?>
                             </div>
                             <div class="tours__days">
-                                2 дня
+                                <?= $item['days'] ?> дня
                             </div>
                             <a class="tours__button" href="">
                                 Подробнее
                             </a>
                         </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -198,7 +140,7 @@
                                 Джон Доуэл
                             </div>
                             <div class="review__tour">
-                                о туре <span>Париж, Франция</span> 
+                                о туре <span>Париж, Франция</span>
                             </div>
                         </div>
                     </div>
@@ -216,7 +158,7 @@
                                 Джон Доуэл
                             </div>
                             <div class="review__tour">
-                                о туре <span>Париж, Франция</span> 
+                                о туре <span>Париж, Франция</span>
                             </div>
                         </div>
                     </div>
@@ -234,7 +176,7 @@
                                 Джон Доуэл
                             </div>
                             <div class="review__tour">
-                                о туре <span>Париж, Франция</span> 
+                                о туре <span>Париж, Франция</span>
                             </div>
                         </div>
                     </div>
@@ -252,7 +194,7 @@
                                 Джон Доуэл
                             </div>
                             <div class="review__tour">
-                                о туре <span>Париж, Франция</span> 
+                                о туре <span>Париж, Франция</span>
                             </div>
                         </div>
                     </div>
@@ -270,7 +212,7 @@
                                 Джон Доуэл
                             </div>
                             <div class="review__tour">
-                                о туре <span>Париж, Франция</span> 
+                                о туре <span>Париж, Франция</span>
                             </div>
                         </div>
                     </div>
@@ -278,6 +220,8 @@
             </div>
         </div>
     </section>
+
+    <?php include 'modules/footer.php' ?>
 </body>
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>

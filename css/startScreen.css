@@ -2,6 +2,7 @@
 #start {
     min-height: 100vh;
     background: url('../img/Background.jpg') center center/cover no-repeat;
+    background-attachment: fixed;
 }
 
 .header {

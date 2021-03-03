@@ -1,0 +1,44 @@
+footer {
+    min-height: 400px;
+    background: #222831;
+    padding: 100px 0 50px 0;
+    position: relative;
+    font-weight: 400;
+}
+
+.footer__text {
+    margin-top: 20px;
+    color: #959595;
+    width: 400px;
+}
+
+.footer__copyrights {
+    position: absolute;
+    bottom: 20px;
+    color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+}
+
+.footer__wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer__qa h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color:#fff;
+}
+
+.footer__mail,
+.footer__tel,
+.footer__adress {
+    font-size: 18px;
+    font-weight: 400;
+    text-align: right;
+    color: #C5C5C5;
+    margin-top: 10px;
+}
