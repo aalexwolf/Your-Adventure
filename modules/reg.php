@@ -1,4 +1,8 @@
 <?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 $login = $_POST['login'];
 $name = $_POST['name'];
 $password = $_POST['password'];

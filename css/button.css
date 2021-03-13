@@ -5,9 +5,8 @@
     justify-content: center;
     cursor: pointer;
     color: #fff;
-    background: rgba( 160, 112, 63, 0.30);
-    backdrop-filter: blur( 3.0px );
-    border-radius: 10px;
+    background: rgba( 102, 87, 72, 0.60);
+
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
@@ -23,4 +22,9 @@
     height: 106px;
     font-size: 36px;
     font-weight: bold;
+}
+
+.order__button {
+    width: 440px;
+    height: 106px;
 }

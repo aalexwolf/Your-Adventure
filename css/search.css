@@ -1,0 +1,88 @@
+.search {
+    margin-bottom: 40px;
+    min-height: 200px;
+}
+
+.search__input {
+    width: 100%;
+    height: 60px;
+    padding: 0 30px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border: none;
+}
+
+.search__row {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.select-box,
+.range-box,
+.date-box,
+.people-box {
+    margin-right: 20px;
+    margin-top: 20px;
+    min-height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    display: inline-block;
+    padding: 20px;
+    min-width: 200px;
+}
+
+.people-box input {
+    width: 100px;
+}
+
+.selectLabel {
+    font-size: 18px;
+    padding: 10px;
+}
+
+.priceValueMin, .priceValueMax {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    transform: translateY(-15%);
+}
+
+.slider {
+    -webkit-appearance: none;
+    /* Override default CSS styles */
+    appearance: none;
+    width: 100%;
+    /* Full-width */
+    height: 25px;
+    /* Specified height */
+    background: #d3d3d3;
+    /* Grey background */
+    outline: none;
+    /* Remove outline */
+    opacity: 0.7;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+    opacity: 1;
+    /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    width: 25px;
+    /* Set a specific slider handle width */
+    height: 25px;
+    /* Slider handle height */
+    background: #09C299;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+}

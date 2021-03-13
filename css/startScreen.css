@@ -27,7 +27,12 @@ nav {
 
 nav a {
     text-decoration: none;
-    color: #FFF;
+    color: #000;
+    transition: all 0.5s;
+}
+
+nav a:hover {
+    color: #09C299;
 }
 .welcome {
     margin-top: 180px;
@@ -41,6 +46,10 @@ nav a {
 
 header nav a:last-child {
     transform: translateY(-25%);
+}
+
+.header__white {
+    color: white
 }
 
 /* POPULAR TOURS */
