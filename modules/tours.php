@@ -43,48 +43,64 @@ if ($_COOKIE['username'] != '') {
 
                 <div class="search">
                     <input class="search__input" type="text" placeholder="Найти..." name="search_text">
+
                     <div class="search__row">
                         <div class="select-box">
                             <label for="select-box1" class="label select-box1"><span class="label-desc">Сортировать
                                     по...</span> </label><br>
                             <select id="select-box1" class="select">
-                                <option value="default">По умолчанию</option>
-                                <option value="cheap">Сначала дешевые</option>
-                                <option value="rich">Сначала дороогие</option>
-                                <option value="rating">Рейтингу</option>
-                                <option value="popularity">Популярности</option>
+                                <option value="order by t.id" selected="selected">По умолчанию</option>
+                                <option value="order by t.price">Сначала дешевые</option>
+                                <option value="order by t.price desc">Сначала дороогие</option>
                             </select>
                         </div>
                         <div class="range-box">
+                            <?php
+                            include '../connect/db.php';
+                            $query = "SELECT MAX(price) max FROM `tours`";
+                            $result = $mysql->query($query);
+                            while ($row = $result->fetch_assoc()) {
+                                $maxPrice = intval($row['max']) + 1;
+                            }
+
+                            $query = "SELECT MIN(price) min FROM `tours`";
+                            $result = $mysql->query($query);
+                            while ($row = $result->fetch_assoc()) {
+                                $minPrice = intval($row['min']) - 1;
+                            }
+
+                            $mysql->close();
+                            ?>
                             <label class='selectLabel' for="select-box1">Минимальная стоимость</span> </label><br>
-                            <input type="range" onchange="changeRangeValue(this.value, '.priceValueMin')" min="1"
-                                max="100" class="slider" id="rangeMin">
+                            <input type="range" oninput="changeRangeValue(this.value, '.priceValueMin')" min=<?= $minPrice ?> max=<?= $maxPrice ?> class="slider" id="rangeMin">
                             <label for="range" class='priceValueMin'></label>
                             <label class='selectLabel' for="select-box1">Максимальная стоимость</span> </label><br>
-                            <input type="range" onchange="changeRangeValue(this.value, '.priceValueMax')" min="1"
-                                max="100" class="slider" id="rangeMax">
+                            <input type="range" oninput="changeRangeValue(this.value, '.priceValueMax')" min=<?= $minPrice ?> max=<?= $maxPrice ?> class="slider" id="rangeMax">
                             <label for="range" class='priceValueMax'></label>
                             <script>
                                 document.querySelector('#rangeMin').value = document.querySelector('#rangeMin').min;
                                 document.querySelector('#rangeMax').value = document.querySelector('#rangeMax').max;
 
-                                document.querySelector('.priceValueMin').innerHTML = document.querySelector('#rangeMin')
-                                    .min;
-                                document.querySelector('.priceValueMax').innerHTML = document.querySelector('#rangeMax')
-                                    .max;
+
+                                changeRangeValue(document.querySelector('#rangeMin')
+                                    .min, '.priceValueMin');
+
+                                changeRangeValue(document.querySelector('#rangeMax')
+                                    .max, '.priceValueMax');
 
                                 function changeRangeValue(value, selector) {
-                                    document.querySelector(selector).innerHTML = value;
+                                    document.querySelector(selector).innerHTML = value + '$';
                                 }
                             </script>
                         </div>
                         <div class="date-box">
                             <label for="date-arr">Дата отправления:</label><br>
-                            <input type="date" id="birthday" name="date-arr">
+                            <input type="date" id="date-arr" name="date-arr">
+                            <div class="btn btn_clean">Очистить</div>
                         </div>
                         <div class="people-box">
                             <label for="peopleNum">Количество человек:</label><br>
-                            <input type="number" max=5 min=1 name="peopleNum">
+                            <input type="number" max=5 min=1 id="peopleNum" name="peopleNum" value=1>
                         </div>
                     </div>
 
@@ -97,35 +113,35 @@ if ($_COOKIE['username'] != '') {
                     $result = $mysql->query($query);
 
                     foreach ($result as $item) : ?>
-                    <div class="tours__item">
-                        <div class="tours__img">
-                            <img src="/img/tours/<?= $item['img'] ?>.jpg" alt="tour">
-                        </div>
-                        <div class="tours__info">
-                            <div class="tours__place-and-price">
-                                <div class="tours__place">
-                                    <h3><?= $item['city'] ?>, <?= $item['country'] ?></h3>
-                                </div>
-                                <div class="tours__price">
-                                    <?= $item['price'] ?>
-                                </div>
+                        <div class="tours__item">
+                            <div class="tours__img">
+                                <img src="/img/tours/<?= $item['img'] ?>.jpg" alt="tour">
                             </div>
-                            <div class="tours__rating">
-                                <img src="/img/rating/yellow.svg" alt="1+">
-                                <img src="/img/rating/yellow.svg" alt="1+">
-                                <img src="/img/rating/yellow.svg" alt="1+">
-                                <img src="/img/rating/yellow.svg" alt="1+">
-                                <img src="/img/rating/yellow.svg" alt="1">
-                                Рейтинг
-                            </div>
-                            <div class="tours__about">
-                                <?
+                            <div class="tours__info">
+                                <div class="tours__place-and-price">
+                                    <div class="tours__place">
+                                        <h3><?= $item['city'] ?>, <?= $item['country'] ?></h3>
+                                    </div>
+                                    <div class="tours__price">
+                                        <?= $item['price'] ?>
+                                    </div>
+                                </div>
+                                <div class="tours__rating">
+                                    <img src="/img/rating/yellow.svg" alt="1+">
+                                    <img src="/img/rating/yellow.svg" alt="1+">
+                                    <img src="/img/rating/yellow.svg" alt="1+">
+                                    <img src="/img/rating/yellow.svg" alt="1+">
+                                    <img src="/img/rating/yellow.svg" alt="1">
+                                    Рейтинг
+                                </div>
+                                <div class="tours__about">
+                                    <?
                                         $descr = strlen($item['description']) > 120 ? mb_substr($item['description'], 0, 120).'...' : $item['description'];
                                         echo $descr;
                                 ?>
-                            </div>
-                            <div class="tours__days">
-                                <?
+                                </div>
+                                <div class="tours__days">
+                                    <?
                                         $days = $item['days'];
                                         if( $days == '1'){ 
                                             echo "$days день";
@@ -139,14 +155,14 @@ if ($_COOKIE['username'] != '') {
                                             echo "$days дней"; 
                                         }
                                     ?>
+                                </div>
+                                <a class="tours__button" href=<?= "tour.php?tour={$item['id']}" ?>>
+                                    Подробнее
+                                </a>
                             </div>
-                            <a class="tours__button" href=<?= "tour.php?tour={$item['id']}"?>>
-                                Подробнее
-                            </a>
                         </div>
-                    </div>
                     <?php endforeach;
-                    $mysql->close(); 
+                    $mysql->close();
                     ?>
                 </div>
             </div>
@@ -156,6 +172,7 @@ if ($_COOKIE['username'] != '') {
     <?php include 'footer.php' ?>
 </body>
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery-1.11.0.min.js"></script>
 <script src='/js/ajaxTour.js'></script>
+
 </html>
