@@ -1,4 +1,8 @@
 <?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 $connect = mysqli_connect("localhost", "root", "root", "youradventure");
 
 $output = '';

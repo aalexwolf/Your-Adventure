@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 if ($_COOKIE['username'] != '') {
     $_SESSION['username'] = $_COOKIE['username'];
 }
@@ -29,7 +32,6 @@ if ($_COOKIE['username'] != '') {
                 </a>
                 <nav>
                     <a href="/modules/tours.php" class="header__item header__white">Туры</a>
-                    <a href="#reviews" class="header__item header__white">Отзывы</a>
                     <a href="#" class="header__item header__white">Контакты</a>
 
                     <?php if ($_SESSION['username'] == '') : ?>
@@ -37,7 +39,7 @@ if ($_COOKIE['username'] != '') {
                     <?php endif; ?>
 
                     <?php if ($_SESSION['username'] != '') : ?>
-                    <a href="modules/auth.php" class="circle header__white"><?php echo $_SESSION['username'] ?></a>
+                    <a href="modules/profile.php" class="circle header__white"><?php echo $_SESSION['username'] ?></a>
                     <?php endif; ?>
                 </nav>
             </header>
@@ -212,101 +214,54 @@ if ($_COOKIE['username'] != '') {
                         наших туров</h3>
                 </div>
                 <div class="review__wrapper">
+                <?php
+                    $query = "select user.name, user.img, reviews.rate, reviews.content, cities.name city, countries.name country 
+                    from reviews 
+                    inner join user on user.id = reviews.user_id 
+                    inner join tours on reviews.tour_id = tours.id
+                    inner join cities on tours.city_id = cities.id
+                    inner join countries on cities.id_country = countries.id
+                    order by reviews.date desc limit 6";
+                    include 'connect/db.php';
+                    $result = $mysql->query($query);
+
+                    foreach ($result as $item) : ?>
                     <div class="review__item">
                         <div class="review__item-wrapper">
                             <div class="review__img"
-                                style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
+                                style="background: url(/img/avatars/<?= $item['img'] ?>.jpg) center center/cover no-repeat;">
+                            </div>
+                            <div class='review__info' style='display: flex'>
+                                <?php
+                                    $starRatingHTML = '';
+                                    $starRating = intval($item['rate']);
+                                    for ($i = 0; $i < $starRating; $i++) {
+                                        $starRatingHTML .= "<img src='/img/rating/yellow.svg' alt='star' width='30px'>";
+                                    }
+                                    for ($i = $starRating; $i < 5; $i++) {
+                                        $starRatingHTML .= "<img src='/img/rating/gray.svg' alt='star' width='30px'>";
+                                    }
+                                    echo $starRatingHTML;
+                                ?>
                             </div>
                             <div class="review__text">
-                                Far far away, behind the word
-                                mountains, far from the countries
-                                Vokalia and Consonantia, there live
-                                the blind texts.
+                                <?
+                                    $descr = strlen($item['content']) > 45 ? mb_substr($item['content'], 0, 45).'...' : $item['content'];
+                                    echo $descr;
+                                ?>
                             </div>
                             <div class="review__author">
-                                Джон Доуэл
+                                <?= $item['name'] ?>
                             </div>
                             <div class="review__tour">
-                                о туре <span>Париж, Франция</span>
+                                о туре <span><?= $item['city'] ?>, <?= $item['country'] ?></span>
                             </div>
                         </div>
                     </div>
-                    <div class="review__item">
-                        <div class="review__item-wrapper">
-                            <div class="review__img"
-                                style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
-                            </div>
-                            <div class="review__text">
-                                Far far away, behind the word
-                                mountains, far from the countries
-                                Vokalia and Consonantia, there live
-                                the blind texts.
-                            </div>
-                            <div class="review__author">
-                                Джон Доуэл
-                            </div>
-                            <div class="review__tour">
-                                о туре <span>Париж, Франция</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review__item">
-                        <div class="review__item-wrapper">
-                            <div class="review__img"
-                                style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
-                            </div>
-                            <div class="review__text">
-                                Far far away, behind the word
-                                mountains, far from the countries
-                                Vokalia and Consonantia, there live
-                                the blind texts.
-                            </div>
-                            <div class="review__author">
-                                Джон Доуэл
-                            </div>
-                            <div class="review__tour">
-                                о туре <span>Париж, Франция</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review__item">
-                        <div class="review__item-wrapper">
-                            <div class="review__img"
-                                style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
-                            </div>
-                            <div class="review__text">
-                                Far far away, behind the word
-                                mountains, far from the countries
-                                Vokalia and Consonantia, there live
-                                the blind texts.
-                            </div>
-                            <div class="review__author">
-                                Джон Доуэл
-                            </div>
-                            <div class="review__tour">
-                                о туре <span>Париж, Франция</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review__item">
-                        <div class="review__item-wrapper">
-                            <div class="review__img"
-                                style="background: url(img/avatars/defalt.png) center center/cover no-repeat;">
-                            </div>
-                            <div class="review__text">
-                                Far far away, behind the word
-                                mountains, far from the countries
-                                Vokalia and Consonantia, there live
-                                the blind texts.
-                            </div>
-                            <div class="review__author">
-                                Джон Доуэл
-                            </div>
-                            <div class="review__tour">
-                                о туре <span>Париж, Франция</span>
-                            </div>
-                        </div>
-                    </div>
+
+                    <?php endforeach;
+                    $mysql->close();
+                    ?>
                 </div>
             </div>
         </div>

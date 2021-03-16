@@ -13,31 +13,30 @@ if ($_COOKIE['username'] != '') {
 ?>
 
 <?php
-    $username = $_SESSION['username'];
-    
-    $query = "select t.id, t.name, c.name city, co.name country, t.price, t.description, t.img, DATEDIFF(t.date_out, t.date_in) days from tours t inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id where t.id = ${tourID}";
-    include '../connect/db.php';
-    $result = $mysql->query($query);
-    while ($row = $result->fetch_assoc()) 
-    {
-        $tourName = $row['name'];
-        $tourCity = $row['city'];
-        $tourCountry = $row['country'];
-        $tourPrice = $row['price'];
-        $tourDesc = $row['description'];
-        $tourDays = $row['days'];
-        $tourImg = $row['img'];
-    }
+$username = $_SESSION['username'];
+
+$query = "select t.id, t.name, c.name city, co.name country, t.price, t.description, t.img, DATEDIFF(t.date_out, t.date_in) days from tours t inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id where t.id = ${tourID}";
+include '../connect/db.php';
+$result = $mysql->query($query);
+while ($row = $result->fetch_assoc()) {
+    $tourName = $row['name'];
+    $tourCity = $row['city'];
+    $tourCountry = $row['country'];
+    $tourPrice = $row['price'];
+    $tourDesc = $row['description'];
+    $tourDays = $row['days'];
+    $tourImg = $row['img'];
+}
 
 
-    $query = "select * from likes inner join user on user.id = likes.user_id where user.username = '${username}' and tour_id = ${tourID}";
-    
-    $result = $mysql->query($query);
-    if (mysqli_num_rows($result) > 0) {
-        $likeColor = 'red';
-    } else {
-        $likeColor = 'gray';
-    }
+$query = "select * from likes inner join user on user.id = likes.user_id where user.username = '${username}' and tour_id = ${tourID}";
+
+$result = $mysql->query($query);
+if (mysqli_num_rows($result) > 0) {
+    $likeColor = 'red';
+} else {
+    $likeColor = 'gray';
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,10 +64,10 @@ if ($_COOKIE['username'] != '') {
     <section id="singleTour">
         <div class="container">
             <div class="singleTour">
+                <div class="singleTour__header">обзор</div>
                 <div class="singleTour__title">
                     <h1><?= $tourName ?></h1>
                 </div>
-
 
                 <div class="singleTour_wrapper">
                     <div class="singleTour__img">
@@ -85,7 +84,7 @@ if ($_COOKIE['username'] != '') {
                             <img src="/img/rating/yellow.svg" alt="" width="30px">
                         </div>
                         <div class="singleTour__price">Стоимость: <strong><?= $tourPrice ?></strong></div>
-                        <div class="singleTour__days">Продолжительность: 
+                        <div class="singleTour__days">Продолжительность:
                             <strong>
                                 <?
                                 $days = $tourDays;
@@ -110,12 +109,13 @@ if ($_COOKIE['username'] != '') {
                             <p class="singleTour__actions-item like" style='color:<?= $likeColor ?>'>
                                 &#10084;
                             </p>
-                           <strong class='likesCount'></strong>&nbspотметок "Нравится"
+                            <strong class='likesCount'></strong>&nbspотметок "Нравится"
                         </div>
 
                     </div>
                 </div>
 
+                <div class="singleTour__header">описание</div>
                 <div class="singleTout__desc">
                     <?= $tourDesc ?>
                 </div>
@@ -125,15 +125,64 @@ if ($_COOKIE['username'] != '') {
     </section>
 
 
+    <section id='comments'>
+        <div class="container">
+            <div class="singleTour__header">отзывы</div>
+            <div class="review" style="padding: 20px 0">
 
-    <?php  include 'footer.php'; ?>
+
+                <div class="review__wrapper">
+                    <div class="review__item">
+                        <div class="review__item-wrapper">
+                            <div class="review__img"
+                                style="background: url(/img/avatars/defalt.png) center center/cover no-repeat;">
+                            </div>
+                            <div class="review__info">
+                                <span>(14.03.2021, 13:29)</span>
+                                <img src="/img/rating/yellow.svg" alt="" width="30px">
+                                <img src="/img/rating/yellow.svg" alt="" width="30px">
+                                <img src="/img/rating/yellow.svg" alt="" width="30px">
+                                <img src="/img/rating/yellow.svg" alt="" width="30px">
+                                <img src="/img/rating/yellow.svg" alt="" width="30px">
+                            </div>
+                            <div class="review__text">
+                                Все супер! Стирает отлично. Не громкая (урчит), только когда отжимает, но 1400 об/мин.
+                                никто тихо не сможет. Все режимы перепроверила, все просто отлично. По-сравнению со
+                                старой машинкой, эта отстирывает на ура без предварительных замачиваний и обработки
+                                химией.
+                            </div>
+
+                            <div class="review__footer">
+                                <div class="review__footer-info">
+                                    <div class="review__author">
+                                        Джон Доуэл
+                                    </div>
+                                    <div class="review__tour">
+                                        о туре <span>Париж, Франция</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="review__btn">Ответить</div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <?php include 'footer.php'; ?>
 </body>
 <?php
-    $mysql->close();
+$mysql->close();
 ?>
 <script type="text/javascript" src="/js/jquery/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="/js/slick/slick.min.js"></script>
-<script src="/js/script.js"></script>
 <script src="/js/ajaxLike.js"></script>
+<script src='/js/ajaxComments.js'></script>
 
 </html>

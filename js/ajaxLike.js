@@ -13,7 +13,6 @@ $(document).ready(function () {
                     updateColor(data);
                     likeCount();
                 }
-                
 			}
 		});
 	}

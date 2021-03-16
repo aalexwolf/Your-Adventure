@@ -81,7 +81,6 @@ if ($_COOKIE['username'] != '') {
                                 document.querySelector('#rangeMin').value = document.querySelector('#rangeMin').min;
                                 document.querySelector('#rangeMax').value = document.querySelector('#rangeMax').max;
 
-
                                 changeRangeValue(document.querySelector('#rangeMin')
                                     .min, '.priceValueMin');
 

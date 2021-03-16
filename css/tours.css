@@ -15,7 +15,6 @@
 
 .tours__wrapper {
     display: flex;
-    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
@@ -88,8 +87,8 @@
 }
 
 .singleTour__title h1 {
-    font-family: "Abril Fatface";
-    font-size: 48px;
+    font-family: 'Yeseva One';
+    font-size: 36px;
 }
 
 .singleTour_wrapper {
@@ -120,8 +119,19 @@
     font-size: 38px;
 }
 
+.singleTour__header {
+    margin: 30px 0 0 0;
+    letter-spacing: 10px;
+    color: #aaa;
+}
+
+.singleTout__desc::first-letter {
+    font-family: 'Yeseva One';
+    font-size: 200%;
+}
+
 .singleTout__desc {
-    margin: 50px 0;
+    margin-bottom: 70px;
 }
 
 .singleTour__info div {
@@ -156,4 +166,55 @@
     font-size: 60px;
     min-width: 20%;
     transform: translateY(-5px);
+}
+
+.comment__header {
+    font-size: 36px;
+    font-family: 'Yeseva One';
+}
+
+.comment__send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 50px;
+    width: 300px;
+    background: #09C299;
+    cursor: pointer;
+}
+
+.comment__input textarea {
+    width: 100%;
+    padding: 30px;
+    resize: vertical;
+}   
+
+.comment__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.comment__stars {
+    display: flex;
+    align-items: flex-start
+}
+
+.comment__stars img {
+    cursor: pointer;
+}
+
+.comment {
+    margin-bottom: 80px;
+}
+
+.review__buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review__delete {
+    margin-left: 20px;
+    color: red;
 }
