@@ -34,6 +34,18 @@
   top: 20px;
   z-index: 5;
   background: #fff;
+  object-fit:cover;
+}
+
+.cameraIcon {
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  left: 50px;
+  cursor: pointer;
+  top: 200px;
+  z-index: 5;
+  background: #fff;
 }
 .profile__nav {
     height: 60px;
@@ -212,6 +224,8 @@ button.chatbtn i,
 button.createbtn i {
   margin-right: 5px;
 }
+
+
 
 .user-rating {
   display: flex;

@@ -2,6 +2,17 @@
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
+
+$query = "select * from user where username = '{$_SESSION['username']}'";
+include '../connect/db.php';
+$result = $mysql->query($query);
+while ($row = $result->fetch_assoc()) {
+    $name = $row['name'];
+    $username = $row['username'];
+    $email = $row['email'];
+    $img = $row['img'];
+}
+$mysql->close();
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -10,9 +21,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личный кабинет</title>
+    <title><?= $username ?> | Личный кабинет</title>
     <link rel="stylesheet" href="/css/style.css">
-    
+
 </head>
 
 <body>
@@ -25,11 +36,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     <section id='profile'>
         <div class="container">
             <div class="profile-header">
-                <div class="profile-img">
-                    <img src="/img/avatars/default.jpg" width="200" alt="Profile Image">
-                </div>
+                <form class="profile-img" action='/functions/user_avatar.php' method='post' enctype="multipart/form-data"> 
+                    <img src="/img/avatars/<?= $img ?>.jpg" width="200" alt="Profile Image">
+                    <label for="fileToUpload" class='cameraIcon' style='background: url(/img/icons/camera.svg) center center/cover no-repeat;'></label>
+                    <input id='fileToUpload' name='fileToUpload' style='display:none' accept="image/jpeg" type='file'></input>
+                </form>
                 <div class="profile-nav-info">
-                    <h3 class="user-name">Алексей</h3>
+                    <h3 class="user-name"><?= $name ?></h3>
                     <div class="address">
                         <p id="state" class="state">Минск,</p>
                         <span id="country" class="country">Беларусь</span>
@@ -42,7 +55,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                 <div class="left-side">
                     <div class="profile-side">
                         Email:
-                        <p class="user-mail" style='font-size: 18px;'>alexvolchkou@gmail.com</p>
+                        <p class="user-mail" style='font-size: 18px;'><?= $email ?></p>
                     </div>
 
                 </div>
@@ -222,6 +235,11 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     </section>
     <script type="text/javascript" src="/js/jquery/jquery-1.11.0.min.js"></script>
     <script src="/js/profile.js"></script>
+    <script>
+        document.querySelector('input[type=file]').addEventListener('change', () => {
+            document.querySelector('form').submit();
+        })
+    </script>
 </body>
 
 </html>
