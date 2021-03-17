@@ -31,8 +31,7 @@ if ($_COOKIE['username'] != '') {
                     <img class="header__logo" src="/img/logo.svg" alt="logo" width="300px">
                 </a>
                 <nav>
-                    <a href="/modules/tours.php" class="header__item header__white">Туры</a>
-                    <a href="#" class="header__item header__white">Контакты</a>
+                    <a href="/modules/tours.php" class="header__item header__white">Искать туры</a>
 
                     <?php if ($_SESSION['username'] == '') : ?>
                     <a href="modules/auth.php" class="btn btn_small header__white">Войти</a>
@@ -64,7 +63,17 @@ if ($_COOKIE['username'] != '') {
                 <div class="tours__wrapper">
 
                     <?php
-                    $query = "select t.id, c.name city, co.name country, t.price, t.description, t.img, DATEDIFF(t.date_out, t.date_in) as days, COUNT(*) kol from bookedtours as b inner join user as u on b.user_id = u.id inner join tours t on b.tour_id = t.id inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id group by t.id order by kol desc limit 3";
+                    $query = "
+                    select t.id, c.name city, co.name country, t.price, t.description, t.img, DATEDIFF(t.date_out, t.date_in) as days, COUNT(*) kol, avg(r.rate) rate
+                    from bookedtours as b 
+                    inner join user as u on b.user_id = u.id 
+                    inner join tours t on b.tour_id = t.id 
+                    inner join reviews r on t.id = r.tour_id
+                    inner join cities c on t.city_id = c.id 
+                    inner join countries co on c.id_country = co.id 
+                    group by t.id order by kol desc limit 3
+                    ";
+
                     include 'connect/db.php';
                     $result = $mysql->query($query);
 
@@ -83,11 +92,15 @@ if ($_COOKIE['username'] != '') {
                                 </div>
                             </div>
                             <div class="tours__rating">
-                                <img src="img/rating/yellow.svg" alt="1+">
-                                <img src="img/rating/yellow.svg" alt="1+">
-                                <img src="img/rating/yellow.svg" alt="1+">
-                                <img src="img/rating/yellow.svg" alt="1+">
-                                <img src="img/rating/yellow.svg" alt="1">
+                                <?php
+                                    $rate = intval($item['rate']);
+                                    for ($i = 0; $i < $rate; $i++) { 
+                                        echo "<img src='/img/rating/yellow.svg' alt='1'>";
+                                    };
+                                    for ($i = $rate; $i < 5; $i++) { 
+                                        echo "<img src='/img/rating/gray.svg' alt='1'>";
+                                    };
+                                ?>
                                 Рейтинг
                             </div>
                             <div class="tours__about">

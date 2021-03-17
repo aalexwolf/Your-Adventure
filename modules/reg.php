@@ -15,47 +15,44 @@ if (isset($login) && isset($name) && isset($password) && isset($passwordRepeat) 
 
     if (strlen($login) < 3 or strlen($login) > 30)
         $err .= "Логин должен быть не меньше 3-х символов и не больше 30<br>";
-    
+
     if (!preg_match("/^[a-zA-Z0-9_]+$/", $login))
         $err .= "Логин может состоять только из букв английского алфавита, цифр и символа '_'<br>";
-    
+
     if (strlen($name) < 3 or strlen($name) > 30)
         $err .= "Имя должно быть не меньше 3-х символов и не больше 30<br>";
-    
+
     if (!preg_match('/^[A-Za-zА-Яа-я]+$/u', $name))
         $err .= "Имя может состоять только из букв русского и английского алфавита<br>";
-    
+
     if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$/', $password))
         $err .= "Пароль должен содержать минимум одну заглавную букву, одну строчную букву и одну цифру<br>";
-    
+
     if (strlen($password) < 8 or strlen($password) > 20)
         $err .= "Пароль должен быть не меньше 8-ми символов и не больше 20<br>";
-    
+
     if ($password != $passwordRepeat)
         $err .= "Пароли не совпадают<br>";
-    
+
     if (strlen($email) > 254)
         $err .= "Email слишком длинный<br>";
-    
-    if ($err != '') {
-        echo $err;
-        exit();
+
+    if ($err == '') {
+        include "../connect/db.php";
+        $query = "SELECT id FROM user WHERE `username`='$login'";
+        if ($mysql->query($query)->num_rows > 0) {
+            echo "Логин занят!";
+            exit();
+        } else {
+            $salt = mt_rand(100, 999);
+            $passwordSalt = md5(md5($password) . $salt);
+
+            $mysql->query("INSERT INTO `user` (`username`, `name`, `password`, `email`, `salt`) 
+                        VALUES('$login', '$name', '$passwordSalt', '$email', '$salt')");
+            header("Location: auth.php");
+        }
+        $mysql->close();
     }
-    
-    include "../connect/db.php";
-    $query = "SELECT id FROM user WHERE `username`='$login'";
-    if ($mysql->query($query)->num_rows > 0) {
-        echo "Логин занят!";
-        exit();
-    } else {
-        $salt = mt_rand(100, 999);
-        $passwordSalt = md5(md5($password) . $salt);
-    
-        $mysql->query("INSERT INTO `user` (`username`, `name`, `password`, `email`, `salt`) 
-                    VALUES('$login', '$name', '$passwordSalt', '$email', '$salt')");
-        header("Location: auth.php");
-    }
-    $mysql->close();
 }
 ?>
 
@@ -66,7 +63,7 @@ if (isset($login) && isset($name) && isset($password) && isset($passwordRepeat) 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Регистрация</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/authentication.css">
     <link rel="stylesheet" href="../css/button.css">
@@ -118,6 +115,9 @@ if (isset($login) && isset($name) && isset($password) && isset($passwordRepeat) 
             <form class="auth__form" action="/modules/reg.php" method="POST">
                 <p class="auth_subtitle">Добро пожаловать!</p>
                 <h1 class="auth__title">Регистрация</h1>
+
+                <div class='errorMessage'> <?= $err ?> </div>
+
                 <label for="login">*Имя пользователя</label><br>
                 <input required class="auth__inputData" type="text" name="login"><br>
 
@@ -143,5 +143,3 @@ if (isset($login) && isset($name) && isset($password) && isset($passwordRepeat) 
 </body>
 
 </html>
-
-

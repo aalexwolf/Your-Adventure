@@ -72,15 +72,13 @@ if (mysqli_num_rows($result) > 0) {
 
         $buttonsHTML = '';
         if ($userID == $row['user_id']) {
-            $buttonsHTML = "                   
-                <div class='review__btn review__reply'>Ответить</div>
+            $buttonsHTML = "
                 <div class='review__btn review__delete'>Удалить</div>
             ";
         }
         else {
-            $buttonsHTML = "                   
-                <div class='review__btn review__reply'>Ответить</div>
-            ";
+            //<div class='review__btn review__reply'>Ответить</div>
+            $buttonsHTML = "";
         }
 
         $output .= "

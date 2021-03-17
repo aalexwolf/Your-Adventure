@@ -107,7 +107,13 @@ if ($_COOKIE['username'] != '') {
 
                 <div class="tours__wrapper">
                     <?php
-                    $query = "select t.id, c.name city, co.name country, t.price, t.description, t.img, DATEDIFF(t.date_out, t.date_in) as days from tours t inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id";
+                    $query = "
+                    select t.id, c.name city, co.name country, t.price, t.description, t.img, DATEDIFF(t.date_out, t.date_in) as days, avg(r.rate) rate
+                    from tours t 
+                    inner join reviews r on r.tour_id = t.id
+                    inner join cities c on t.city_id = c.id 
+                    inner join countries co on c.id_country = co.id
+                    ";
                     include '../connect/db.php';
                     $result = $mysql->query($query);
 
@@ -126,11 +132,15 @@ if ($_COOKIE['username'] != '') {
                                     </div>
                                 </div>
                                 <div class="tours__rating">
-                                    <img src="/img/rating/yellow.svg" alt="1+">
-                                    <img src="/img/rating/yellow.svg" alt="1+">
-                                    <img src="/img/rating/yellow.svg" alt="1+">
-                                    <img src="/img/rating/yellow.svg" alt="1+">
-                                    <img src="/img/rating/yellow.svg" alt="1">
+                                    <?php
+                                    $rate = intval($item['rate']);
+                                    for ($i = 0; $i < $rate; $i++) {
+                                        echo "<img src='/img/rating/yellow.svg' width='20px' alt='1'>";
+                                    };
+                                    for ($i = $rate; $i < 5; $i++) {
+                                        echo "<img src='/img/rating/gray.svg' width='20px' alt='1'>";
+                                    };
+                                    ?>
                                     Рейтинг
                                 </div>
                                 <div class="tours__about">

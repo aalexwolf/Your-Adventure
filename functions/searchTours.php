@@ -16,22 +16,30 @@ $people = $_POST["people"];
 
 if ($date == '') {
     $query = "
-    select t.id, t.name, c.name city, co.name country, t.price, t.description, t.img, t.date_in date, t.seats, DATEDIFF(t.date_out, t.date_in) days from tours t inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id 
+    select t.id, t.name, c.name city, co.name country, t.price, t.description, t.img, t.date_in date, t.seats, DATEDIFF(t.date_out, t.date_in) days, avg(r.rate) rate 
+    from tours t 
+    inner join reviews r on r.tour_id = t.id
+    inner join cities c on t.city_id = c.id
+    inner join countries co on c.id_country = co.id 
     WHERE (t.date_in > CURDATE())
     and (t.seats - '${people}' >= 0)
     and (t.price >= '${priceMin}') and (t.price <= '${priceMax}')
     and (c.name like '%${search}%' or co.name like '%${search}%' or t.name like '%${search}%')
-    ${sort}
+    group by t.id ${sort}
     ";
 } else {
     $query = "
-    select t.id, t.name, c.name city, co.name country, t.price, t.description, t.img, t.date_in date, DATEDIFF(t.date_out, t.date_in) days      from tours t inner join cities c on t.city_id = c.id inner join countries co on c.id_country = co.id 
+    select t.id, t.name, c.name city, co.name country, t.price, t.description, t.img, t.date_in date, DATEDIFF(t.date_out, t.date_in) days, avg(r.rate) rate  
+    from tours t 
+    inner join reviews r on r.tour_id = t.id
+    inner join cities c on t.city_id = c.id 
+    inner join countries co on c.id_country = co.id 
     WHERE (t.date_in > CURDATE())
     and (t.date_in = '${date}')
     and (t.seats - '${people}' >= 0)
     and (t.price >= '${priceMin}') and (t.price <= '${priceMax}')
     and (c.name like '%${search}%' or co.name like '%${search}%' or t.name like '%${search}%')
-    {$sort}
+    group by t.id {$sort}
     ";
 }
 
@@ -56,6 +64,15 @@ if (mysqli_num_rows($result) > 0) {
         } else {
             $days = "$days дней";
         }
+
+        $rate = intval($row['rate']);
+        $rateHTML = '';
+        for ($i = 0; $i < $rate; $i++) {
+            $rateHTML .= "<img src='/img/rating/yellow.svg' width='25px' alt='1'>";
+        };
+        for ($i = $rate; $i < 5; $i++) {
+            $rateHTML .= "<img src='/img/rating/gray.svg' width='25px' alt='1'>";
+        };
         $output .= "
         <div class='tours__item'>
         <div class='tours__img'>
@@ -71,11 +88,7 @@ if (mysqli_num_rows($result) > 0) {
                 </div>
             </div>
             <div class='tours__rating'>
-                <img src='/img/rating/yellow.svg' alt='1+'>
-                <img src='/img/rating/yellow.svg' alt='1+'>
-                <img src='/img/rating/yellow.svg' alt='1+'>
-                <img src='/img/rating/yellow.svg' alt='1+'>
-                <img src='/img/rating/yellow.svg' alt='1+'>
+                ${rateHTML}
                 Рейтинг
             </div>
             <div class='tours__about'>{$descr}</div>
@@ -86,7 +99,7 @@ if (mysqli_num_rows($result) > 0) {
             </a>
         </div>
     </div>
-        ";
+    ";
     }
     echo $output;
 } else {

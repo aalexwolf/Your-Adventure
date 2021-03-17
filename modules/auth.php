@@ -6,6 +6,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 $login = $_POST['login'];
 $password = $_POST['password'];
 $remember = $_POST['remember'];
+$errorMessage = '';
 
 include "../connect/db.php";
 $query = "SELECT `username`, `password`, `salt` FROM user WHERE `username`='$login'";
@@ -21,6 +22,8 @@ if ($result->num_rows > 0) {
             setcookie("username", '', time() - 3600 * 24 * 7, "/");
         }
         $_SESSION['username'] = $login;
+    } else {
+        $errorMessage = 'Неверный логин или пароль';
     }
 }
 $mysql->close();
@@ -32,7 +35,7 @@ $mysql->close();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Авторизация</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/authentication.css">
     <link rel="stylesheet" href="../css/button.css">
@@ -79,6 +82,7 @@ $mysql->close();
             <form class="auth__form" action="auth.php" method="POST">
                 <p class="auth_subtitle">С возвращением!</p>
                 <h1 class="auth__title">Войдите в ваш аккаунт</h1>
+                <div class='errorMessage'> <?= $errorMessage ?> </div>
 
                 <label for="login">Имя пользователя или email</label><br>
                 <input required class="auth__inputData" type="text" name="login"><br>

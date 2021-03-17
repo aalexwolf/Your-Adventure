@@ -4,8 +4,7 @@
         <img class="header__logo" src="/img/logo _dark.svg" alt="logo" width="300px">
     </a>
     <nav>
-        <a href="/modules/tours.php" class="header__item">Туры</a>
-        <a href="#" class="header__item">Контакты</a>
+        <a href="/modules/tours.php" class="header__item">Искать туры</a>
 
         <?php if ($_SESSION['username'] == '') : ?>
         <a href="/modules/auth.php" class="btn btn_small">Войти</a>
